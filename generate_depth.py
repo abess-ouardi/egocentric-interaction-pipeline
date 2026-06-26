@@ -3,15 +3,19 @@ import torch
 import numpy as np
 import os
 from transformers import AutoImageProcessor, AutoModelForDepthEstimation
+from pathlib import Path
 
-# ==========================================
-# CONFIGURATION & PATHS
-# ==========================================
-VIDEO_PATH = "push_cup.mp4"
-OUTPUT_DEPTH_VIDEO = "depth_push_cup.mp4"
+
+# Dynamically gets the absolute directory of the current script
+parent_dir = Path(__file__).resolve().parent
+
+
+VIDEO_PATH = str(parent_dir / "datasets" / "push_cup.mp4")
+OUTPUT_DEPTH_VIDEO = str(parent_dir / "datasets" / "depth_push_cup.mp4")
+
 
 if not os.path.exists(VIDEO_PATH):
-    raise FileNotFoundError(f"Could not find input video: {VIDEO_PATH}")
+    raise FileNotFoundError(f"Could not find input video at: {VIDEO_PATH}")
 
 # Set device: Use GPU if available, otherwise default to CPU safely
 device = torch.device("cpu")

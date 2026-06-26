@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 import pandas as pd
 
-#PUT IN HERE THE PARENT DIRECTORY OF THIS SCRIPT
-parent_dir = ""
+# Dynamically finds the folder where this script file lives
+parent_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 from vision import SegmentationEngine
@@ -14,11 +14,12 @@ from hand_tracker import HandTrackingEngine
 # =====================================================================
 # GLOBAL CONFIGURATION & PARAMETERS
 # =====================================================================
-VIDEO_PATH = os.path.join(parent_dir, "push_cup.mp4")
-DEPTH_VIDEO_PATH = os.path.join(parent_dir, "depth_push_cup.mp4")
-CSV_OUTPUT_PATH = os.path.join(parent_dir, "validation_checks", "debug_interaction_hybrid_push_cupx1.csv")
+# Navigates inside the "datasets" subfolder for your input videos
+VIDEO_PATH = os.path.join(parent_dir, "datasets", "push_cup.mp4")
+DEPTH_VIDEO_PATH = os.path.join(parent_dir, "datasets", "depth_push_cup.mp4")
 
-# --- SNIPPET 1: ADD VISUALIZATION OUTPUT PATH CONSTANT ---
+# Keeps output metrics and visualization videos in the "validation_checks" folder
+CSV_OUTPUT_PATH = os.path.join(parent_dir, "validation_checks", "debug_interaction_hybrid_push_cupx1.csv")
 OUTPUT_VIDEO_PATH = os.path.join(parent_dir, "validation_checks", "hybrid_interaction_matrix_push_cupx1.mp4")
 
 MIN_OVERLAP_PIXELS = 5
@@ -26,7 +27,9 @@ DEPTH_DIFF_THRESHOLD = 25.0
 
 TARGET_CLASSES = {
     39: "bottle", 40: "wine glass", 41: "cup", 42: "fork", 43: "knife", 44: "spoon", 45: "bowl",
-    63: "laptop", 64: "mouse", 67: "cell phone", 73: "book", 77: "teddy bear"
+    46: "banana", 47: "apple", 48: "sandwich", 49: "orange", 50: "broccoli", 51: "carrot", 
+    63: "laptop", 64: "mouse", 65: "remote", 66: "keyboard", 67: "cell phone",
+    73: "book", 74: "clock", 75: "vase", 76: "scissors", 77: "teddy bear", 78: "hair dryer", 79: "toothbrush"
 }
 
 ORDERED_COLUMNS = [
